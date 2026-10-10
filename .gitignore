@@ -1,6 +1,5 @@
 /dist/
-/bin/
-*.test
-*.out
-coverage.*
-.env
+/.superpowers/
+/.conformance-data/
+/cloudru-s3
+/.kit/

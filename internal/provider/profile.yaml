@@ -1,0 +1,48 @@
+id: cloudru
+display_name: Cloud.ru
+env_prefix: CLOUDRU_S3_
+uri_scheme: cloudru-s3
+binary: cloudru-s3
+default_pool: ru-central-1
+path_style: true
+pools:
+  - id: ru-central-1
+    endpoint: https://s3.cloud.ru
+    location: Москва, Evolution
+    multi_az: true
+    storage_classes: [STANDARD, COLD, ICE, SINGLE]
+storage_classes:
+  - {id: STANDARD, name_ru: Стандартное, price_rub_gb_month: 1.83915, verified: false, checked_at: "2026-10-10"}
+  - {id: COLD, name_ru: Холодное, price_rub_gb_month: 0.97905, verified: false, checked_at: "2026-10-10"}
+  - {id: ICE, name_ru: Ледяное, price_rub_gb_month: 0.489525, verified: false, checked_at: "2026-10-10"}
+  - {id: SINGLE, name_ru: Однозонное, price_rub_gb_month: 1.1346, verified: false, checked_at: "2026-10-10"}
+features:
+  versioning: true
+  object_lock_config: true
+  object_retention: true
+  object_tagging: true
+  bucket_tagging: true
+  lifecycle: true
+  cors: true
+  bucket_policy: true
+  conditional_writes: false
+  conditional_delete: false
+  multipart: true
+  presign: true
+  acl: true
+limits:
+  max_put_bytes: 5000000000
+  max_parts: 10000
+  rate_limits: {get_objects_per_tenant: 1000, put_objects_per_tenant: 1000, list_objects_per_tenant: 1000, common_per_tenant: 2000}
+presign_max_seconds: 604800
+verified: false
+presign_note: "Evolution Object Storage, до 7 дней. Защитные условия записи/удаления не подтверждены; SINGLE не Multi-AZ. Нужна живая проверка."
+docs_urls:
+  - https://cloud.ru/docs/s3e/ug/topics/api__getting-started
+  - https://cloud.ru/docs/s3e/ug/topics/api__methods
+  - https://cloud.ru/docs/s3e/ug/topics/api__headers-request
+  - https://cloud.ru/docs/s3e/ug/topics/api__aws-sig-v4
+  - https://cloud.ru/docs/s3e/ug/topics/concepts__storage-class
+  - https://cloud.ru/docs/s3e/ug/topics/overview__limitations
+  - https://cloud.ru/docs/s3e/ug/topics/api__response-codes
+  - https://cloud.ru/documents/tariffs/evolution/object-storage

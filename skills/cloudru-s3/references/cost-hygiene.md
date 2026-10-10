@@ -1,0 +1,3 @@
+# Объём и расходы
+
+`s3_largest_objects` и `s3_prefix_usage` дают ограниченный скан, а не биллинг. `s3_unfinished_uploads` находит multipart; abort требует согласия. Классы и verified доступны в pools. Lifecycle и выбор класса эта версия CLI не настраивает; сверь панель и официальную документацию Cloud.ru: https://cloud.ru/docs/s3e/ug/topics/api__getting-started https://cloud.ru/docs/s3e/ug/topics/api__methods https://cloud.ru/docs/s3e/ug/topics/api__headers-request https://cloud.ru/docs/s3e/ug/topics/api__aws-sig-v4 https://cloud.ru/docs/s3e/ug/topics/concepts__storage-class https://cloud.ru/docs/s3e/ug/topics/overview__limitations https://cloud.ru/docs/s3e/ug/topics/api__response-codes https://cloud.ru/documents/tariffs/evolution/object-storage.

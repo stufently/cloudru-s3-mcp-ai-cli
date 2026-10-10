@@ -1,0 +1,3 @@
+# Инцидент
+
+Начни с `doctor`, конфигурации, head/list и аудита. SDK повторяет 429/503 с адаптивной задержкой. Сверь часы и ограничения провайдера: https://cloud.ru/docs/s3e/ug/topics/api__getting-started https://cloud.ru/docs/s3e/ug/topics/api__methods https://cloud.ru/docs/s3e/ug/topics/api__headers-request https://cloud.ru/docs/s3e/ug/topics/api__aws-sig-v4 https://cloud.ru/docs/s3e/ug/topics/concepts__storage-class https://cloud.ru/docs/s3e/ug/topics/overview__limitations https://cloud.ru/docs/s3e/ug/topics/api__response-codes https://cloud.ru/documents/tariffs/evolution/object-storage. Не меняй скоуп или политику подтверждения для обхода отказа. Баланс, ключи и аккаунт проверяет владелец.
