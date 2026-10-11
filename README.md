@@ -1,12 +1,14 @@
 # Cloud.ru S3 MCP Server & AI CLI
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-development-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
-Cloud.ru Evolution S3 Object Storage через MCP и CLI: Claude Code, Cursor и Codex помогают выполнять бэкап и работать с файлами, а AI-агент получает ограниченный доступ и подтверждение опасных действий.
+MCP-сервер и CLI для Cloud.ru Evolution Object Storage: подключение S3-хранилища к Claude Code, Cursor и Codex, диагностика доступа и восстановление файлов. Бинарь `cloudru-s3` предназначен для Evolution с endpoint `s3.cloud.ru`.
+
+[English guide](README.en.md) · [Каталог S3 MCP-серверов](https://stufently.github.io/s3-mcp-ai-cli-kit/)
 
 ## English
 
-A single Go binary for Cloud.ru Object Storage: a stdio MCP server, streaming CLI and installable agent skill. Read-only MCP access is the default; independent write/delete/admin levels, bucket/prefix scope, human approval and confined local file access protect data. Large files travel directly through presigned URLs or multipart uploads. See the [full English guide](README.en.md).
+A Go MCP server, CLI and agent skill for Cloud.ru S3 Object Storage. Connect Claude Code, Cursor and Codex to scoped object storage for inspection and backup recovery. Evolution, s3.cloud.ru, ru-central-1; not an Advanced profile. See the [full English guide](README.en.md).
 
 ## Быстрый старт
 
@@ -69,6 +71,18 @@ Codex: ~/.codex/config.toml. Существующая таблица требу�
 
 Аналитика сканирует максимум max_scan (по умолчанию 10000); partial/token отмечают неполный результат. Prefix usage выдаёт страницы агрегатов через next_result_offset. Это не биллинг.
 
+## Сценарий: Диагностика доступа к Evolution Object Storage
+
+Начните миграцию или восстановление с проверки доступа к Evolution и ограниченного скана префикса. Этот профиль не предназначен для другого S3-продукта Cloud.ru с отличающимися endpoint и регионом:
+
+```bash
+cloudru-s3 doctor --json
+cloudru-s3 --pool ru-central-1 ls backups/daily/ --json
+cloudru-s3 cp s3://backups/daily/archive.tar ./restored-cloudru.tar
+```
+
+Примеры используют существующий бакет `backups` и объект `daily/archive.tar`; замените их своими значениями. Профиль и API облака ещё требуют [живой проверки](TASKS.md).
+
 ## CLI
 
 ```bash
@@ -129,6 +143,12 @@ Lifecycle, ACL, bucket tagging и object retention могут поддержив
 
 ## FAQ
 
+**Это MCP для Cloud.ru Evolution или Advanced?** Для **Evolution Object Storage**: профиль использует `https://s3.cloud.ru` и `ru-central-1`. Не переносите эти значения на Advanced; [официальные источники и ограничения](docs/research/cloudru-s3.md) относятся к Evolution.
+
+**Как проверить ключ и доступ Cloud.ru S3?** `cloudru-s3 auth status` проверяет локальные настройки, а `doctor --json` дополнительно обращается к сервису: проверяет DNS/TLS, часы и ListBuckets. Для сети и облачных операций нужен ваш действующий ключ.
+
+**Можно ли считать SINGLE классом Multi-AZ?** Нет: в профиле класс `SINGLE` выделен отдельно. Наличие Multi-AZ у пула не означает одинаковую избыточность всех классов; детали отмечены в [ресерче](docs/research/cloudru-s3.md).
+
 **Что такое MCP-сервер?** Программа предоставляет агентам инструменты и ресурсы через Model Context Protocol; здесь stdio.
 
 **Как подключить MCP-сервер к Claude Code?** Сохрани ключи auth set, затем используй project install либо напечатанную user-команду.
@@ -142,7 +162,18 @@ Lifecycle, ACL, bucket tagging и object retention могут поддержив
 
 ## Другие провайдеры
 
-Семейство: Selectel, Yandex Cloud, VK Cloud, Cloud.ru, Timeweb Cloud, MWS, Beget. Все используют [общий kit](https://github.com/stufently/s3-mcp-ai-cli-kit).
+[Общий каталог: MCP-серверы и CLI для российских S3](https://stufently.github.io/s3-mcp-ai-cli-kit/).
+
+| Провайдер | Репозиторий | Сценарий |
+|---|---|---|
+| Selectel | [selectel-s3-mcp-ai-cli](https://github.com/stufently/selectel-s3-mcp-ai-cli) | Выбор пула и восстановление резервных копий |
+| Yandex Cloud | [yandex-s3-mcp-ai-cli](https://github.com/stufently/yandex-s3-mcp-ai-cli) | Инвентаризация объектов и проверка версий бэкапов |
+| VK Cloud | [vkcloud-s3-mcp-ai-cli](https://github.com/stufently/vkcloud-s3-mcp-ai-cli) | Проверка Hotbox/Icebox и доступ к нужному региону |
+| Cloud.ru | [cloudru-s3-mcp-ai-cli](https://github.com/stufently/cloudru-s3-mcp-ai-cli) | Диагностика доступа к Evolution Object Storage |
+| Timeweb Cloud | [timeweb-s3-mcp-ai-cli](https://github.com/stufently/timeweb-s3-mcp-ai-cli) | Восстановление архивов и учёт объёма префикса |
+| MWS | [mws-s3-mcp-ai-cli](https://github.com/stufently/mws-s3-mcp-ai-cli) | Проверка HMAC-доступа и короткие ссылки на архивы |
+| Beget | [beget-s3-mcp-ai-cli](https://github.com/stufently/beget-s3-mcp-ai-cli) | Просмотр и восстановление файлов из готового бакета |
+| Shared Go kit | [s3-mcp-ai-cli-kit](https://github.com/stufently/s3-mcp-ai-cli-kit) | Общие MCP, CLI, защиты и CI |
 
 ## Лицензия
 
