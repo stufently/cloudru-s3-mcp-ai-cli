@@ -14,7 +14,7 @@ A Go MCP server, CLI and agent skill for Cloud.ru S3 Object Storage. Connect Cla
 
 Профиль подключается к **Evolution Object Storage**. В `auth set` идентификатор ключа вводится полностью: `<tenant_id>:<key_id>`. Пул `ru-central-1`, endpoint `https://s3.cloud.ru`. Advanced OBS требует отдельного профиля.
 
-Возьми бинарь своей платформы из Releases, когда версия будет опубликована, либо собери с Go 1.27.2:
+Возьми бинарь своей платформы из [Releases](https://github.com/stufently/cloudru-s3-mcp-ai-cli/releases/latest) (v0.1.0 опубликован; есть в MCP Registry и Smithery) либо собери с Go 1.27.2:
 
 ```bash
 bash scripts/go.sh go build -o cloudru-s3 ./cmd/cloudru-s3
@@ -28,7 +28,7 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
 
 Приоритет: флаги > env > файл. Переменные: CLOUDRU_S3_ACCESS_KEY_ID, CLOUDRU_S3_SECRET_ACCESS_KEY, CLOUDRU_S3_POOL (ru-central-1), CLOUDRU_S3_ENDPOINT. HTTP требует CLOUDRU_S3_ALLOW_INSECURE=1.
 
-После публикации образ: ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0; локальная сборка: docker build -t cloudru-s3 . Образ запускает MCP от uid 65532, содержит CA-сертификаты. Передай креды через приватное окружение/файл.
+Образ: ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0; локальная сборка: docker build -t cloudru-s3 . Образ запускает MCP от uid 65532, содержит CA-сертификаты. Передай креды через приватное окружение/файл.
 
 ## Возможности
 
