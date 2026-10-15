@@ -38,6 +38,37 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
 
 ## Подключение к Claude Code, Cursor, Codex
 
+[![Add cloudru-s3 MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=cloudru-s3&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItaSIsIi0tcm0iLCItZSIsIkNMT1VEUlVfUzNfQUNDRVNTX0tFWV9JRCIsIi1lIiwiQ0xPVURSVV9TM19TRUNSRVRfQUNDRVNTX0tFWSIsIi1lIiwiQ0xPVURSVV9TM19QT09MIiwiZ2hjci5pby9zdHVmZW50bHkvY2xvdWRydS1zMy1tY3AtYWktY2xpOjAuMS4wIl0sImVudiI6eyJDTE9VRFJVX1MzX0FDQ0VTU19LRVlfSUQiOiIke2VudjpDTE9VRFJVX1MzX0FDQ0VTU19LRVlfSUR9IiwiQ0xPVURSVV9TM19TRUNSRVRfQUNDRVNTX0tFWSI6IiR7ZW52OkNMT1VEUlVfUzNfU0VDUkVUX0FDQ0VTU19LRVl9IiwiQ0xPVURSVV9TM19QT09MIjoiJHtlbnY6Q0xPVURSVV9TM19QT09MfSJ9fQ%3D%3D)
+
+Кнопка ставит MCP из Docker-образа `ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0` в режиме только чтения. Ключи в конфиг не пишутся: Cursor подставляет `${env:…}` из окружения, поэтому задай `CLOUDRU_S3_ACCESS_KEY_ID` и `CLOUDRU_S3_SECRET_ACCESS_KEY` там, откуда запускается Cursor; `CLOUDRU_S3_POOL` — если бакет не в пуле по умолчанию (пустое значение = пул по умолчанию). Тот же блок — для Windsurf (`mcp_config.json`) и вручную для `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "cloudru-s3": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "CLOUDRU_S3_ACCESS_KEY_ID",
+        "-e",
+        "CLOUDRU_S3_SECRET_ACCESS_KEY",
+        "-e",
+        "CLOUDRU_S3_POOL",
+        "ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0"
+      ],
+      "env": {
+        "CLOUDRU_S3_ACCESS_KEY_ID": "${env:CLOUDRU_S3_ACCESS_KEY_ID}",
+        "CLOUDRU_S3_SECRET_ACCESS_KEY": "${env:CLOUDRU_S3_SECRET_ACCESS_KEY}",
+        "CLOUDRU_S3_POOL": "${env:CLOUDRU_S3_POOL}"
+      }
+    }
+  }
+}
+```
+
 ```bash
 cloudru-s3 mcp install --client cursor --dry-run
 cloudru-s3 mcp install --client cursor
