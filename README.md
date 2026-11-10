@@ -14,7 +14,7 @@ A Go MCP server, CLI and agent skill for Cloud.ru S3 Object Storage. Connect Cla
 
 Профиль подключается к **Evolution Object Storage**. В `auth set` идентификатор ключа вводится полностью: `<tenant_id>:<key_id>`. Пул `ru-central-1`, endpoint `https://s3.cloud.ru`. Advanced OBS требует отдельного профиля.
 
-Возьми бинарь своей платформы из [Releases](https://github.com/stufently/cloudru-s3-mcp-ai-cli/releases/latest) (v0.1.0 опубликован; есть в MCP Registry и Smithery) либо собери с Go 1.27.2:
+Возьми бинарь своей платформы из [Releases](https://github.com/stufently/cloudru-s3-mcp-ai-cli/releases/latest) (v0.1.1 опубликован; есть в MCP Registry и Smithery) либо собери с Go 1.27.2:
 
 ```bash
 bash scripts/go.sh go build -o cloudru-s3 ./cmd/cloudru-s3
@@ -28,7 +28,7 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
 
 Приоритет: флаги > env > файл. Переменные: CLOUDRU_S3_ACCESS_KEY_ID, CLOUDRU_S3_SECRET_ACCESS_KEY, CLOUDRU_S3_POOL (ru-central-1), CLOUDRU_S3_ENDPOINT. HTTP требует CLOUDRU_S3_ALLOW_INSECURE=1.
 
-Образ: ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0; локальная сборка: docker build -t cloudru-s3 . Образ запускает MCP от uid 65532, содержит CA-сертификаты. Передай креды через приватное окружение/файл.
+Образ: ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.1; локальная сборка: docker build -t cloudru-s3 . Образ запускает MCP от uid 65532, содержит CA-сертификаты. Передай креды через приватное окружение/файл.
 
 ## Возможности
 
@@ -38,9 +38,9 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
 
 ## Подключение к Claude Code, Cursor, Codex
 
-[![Add cloudru-s3 MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=cloudru-s3&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItaSIsIi0tcm0iLCItZSIsIkNMT1VEUlVfUzNfQUNDRVNTX0tFWV9JRCIsIi1lIiwiQ0xPVURSVV9TM19TRUNSRVRfQUNDRVNTX0tFWSIsIi1lIiwiQ0xPVURSVV9TM19QT09MIiwiZ2hjci5pby9zdHVmZW50bHkvY2xvdWRydS1zMy1tY3AtYWktY2xpOjAuMS4wIl0sImVudiI6eyJDTE9VRFJVX1MzX0FDQ0VTU19LRVlfSUQiOiIke2VudjpDTE9VRFJVX1MzX0FDQ0VTU19LRVlfSUR9IiwiQ0xPVURSVV9TM19TRUNSRVRfQUNDRVNTX0tFWSI6IiR7ZW52OkNMT1VEUlVfUzNfU0VDUkVUX0FDQ0VTU19LRVl9IiwiQ0xPVURSVV9TM19QT09MIjoiJHtlbnY6Q0xPVURSVV9TM19QT09MfSJ9fQ%3D%3D)
+[![Add cloudru-s3 MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=cloudru-s3&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItaSIsIi0tcm0iLCItZSIsIkNMT1VEUlVfUzNfQUNDRVNTX0tFWV9JRCIsIi1lIiwiQ0xPVURSVV9TM19TRUNSRVRfQUNDRVNTX0tFWSIsIi1lIiwiQ0xPVURSVV9TM19QT09MIiwiZ2hjci5pby9zdHVmZW50bHkvY2xvdWRydS1zMy1tY3AtYWktY2xpOjAuMS4xIl0sImVudiI6eyJDTE9VRFJVX1MzX0FDQ0VTU19LRVlfSUQiOiIke2VudjpDTE9VRFJVX1MzX0FDQ0VTU19LRVlfSUR9IiwiQ0xPVURSVV9TM19TRUNSRVRfQUNDRVNTX0tFWSI6IiR7ZW52OkNMT1VEUlVfUzNfU0VDUkVUX0FDQ0VTU19LRVl9IiwiQ0xPVURSVV9TM19QT09MIjoiJHtlbnY6Q0xPVURSVV9TM19QT09MfSJ9fQ%3D%3D)
 
-Кнопка ставит MCP из Docker-образа `ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0` в режиме только чтения. Ключи в конфиг не пишутся: Cursor подставляет `${env:…}` из окружения, поэтому задай `CLOUDRU_S3_ACCESS_KEY_ID` и `CLOUDRU_S3_SECRET_ACCESS_KEY` там, откуда запускается Cursor; `CLOUDRU_S3_POOL` — если бакет не в пуле по умолчанию (пустое значение = пул по умолчанию). Тот же блок — для Windsurf (`mcp_config.json`) и вручную для `~/.cursor/mcp.json`:
+Кнопка ставит MCP из Docker-образа `ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.1` в режиме только чтения. Ключи в конфиг не пишутся: Cursor подставляет `${env:…}` из окружения, поэтому задай `CLOUDRU_S3_ACCESS_KEY_ID` и `CLOUDRU_S3_SECRET_ACCESS_KEY` там, откуда запускается Cursor; `CLOUDRU_S3_POOL` — если бакет не в пуле по умолчанию (пустое значение = пул по умолчанию). Тот же блок — для Windsurf (`mcp_config.json`) и вручную для `~/.cursor/mcp.json`:
 
 ```json
 {
@@ -57,7 +57,7 @@ auth set спрашивает key ID и secret без эха; без TTY чит�
         "CLOUDRU_S3_SECRET_ACCESS_KEY",
         "-e",
         "CLOUDRU_S3_POOL",
-        "ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0"
+        "ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.1"
       ],
       "env": {
         "CLOUDRU_S3_ACCESS_KEY_ID": "${env:CLOUDRU_S3_ACCESS_KEY_ID}",
