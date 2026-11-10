@@ -12,7 +12,7 @@ Streaming object CRUD, copy, multipart and presigned URLs follow the profile. Ve
 
 This profile targets **Evolution Object Storage**. Supply the complete `<tenant_id>:<key_id>` as the access key ID to `auth set`; signing region is `ru-central-1`, endpoint `https://s3.cloud.ru`. Advanced OBS uses a separate API contract.
 
-Use a platform binary from [Releases](https://github.com/stufently/cloudru-s3-mcp-ai-cli/releases/latest) (v0.1.1 is out; also listed in the MCP Registry and Smithery), or build with Go 1.27.2:
+Use a platform binary from [Releases](https://github.com/stufently/cloudru-s3-mcp-ai-cli/releases/latest) (v0.1.0 is out; also listed in the MCP Registry and Smithery), or build with Go 1.27.2:
 
 ```bash
 bash scripts/go.sh go build -o cloudru-s3 ./cmd/cloudru-s3
@@ -26,13 +26,13 @@ auth set reads the key ID and secret without terminal echo; non-TTY input suppli
 
 Resolution: flags > env > file. Variables: CLOUDRU_S3_ACCESS_KEY_ID, CLOUDRU_S3_SECRET_ACCESS_KEY, CLOUDRU_S3_POOL (ru-central-1), CLOUDRU_S3_ENDPOINT. HTTP requires CLOUDRU_S3_ALLOW_INSECURE=1.
 
-Image: ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.1. Build locally with docker build -t cloudru-s3 .; the scratch image runs MCP as uid 65532 with CA certificates. Supply a private credentials environment/file setup.
+Image: ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0. Build locally with docker build -t cloudru-s3 .; the scratch image runs MCP as uid 65532 with CA certificates. Supply a private credentials environment/file setup.
 
 ## Connect to Claude Code, Cursor, Codex
 
 [![Add cloudru-s3 MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=cloudru-s3&config=eyJjb21tYW5kIjoiZG9ja2VyIiwiYXJncyI6WyJydW4iLCItaSIsIi0tcm0iLCItZSIsIkNMT1VEUlVfUzNfQUNDRVNTX0tFWV9JRCIsIi1lIiwiQ0xPVURSVV9TM19TRUNSRVRfQUNDRVNTX0tFWSIsIi1lIiwiQ0xPVURSVV9TM19QT09MIiwiZ2hjci5pby9zdHVmZW50bHkvY2xvdWRydS1zMy1tY3AtYWktY2xpOjAuMS4wIl0sImVudiI6eyJDTE9VRFJVX1MzX0FDQ0VTU19LRVlfSUQiOiIke2VudjpDTE9VRFJVX1MzX0FDQ0VTU19LRVlfSUR9IiwiQ0xPVURSVV9TM19TRUNSRVRfQUNDRVNTX0tFWSI6IiR7ZW52OkNMT1VEUlVfUzNfU0VDUkVUX0FDQ0VTU19LRVl9IiwiQ0xPVURSVV9TM19QT09MIjoiJHtlbnY6Q0xPVURSVV9TM19QT09MfSJ9fQ%3D%3D)
 
-The button installs the MCP server from the Docker image `ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.1`, read-only. Keys stay out of the config: Cursor fills `${env:…}` from the environment, so set `CLOUDRU_S3_ACCESS_KEY_ID` and `CLOUDRU_S3_SECRET_ACCESS_KEY` where Cursor starts, and `CLOUDRU_S3_POOL` when the bucket is not in the default pool (empty means the default). The same block works for Windsurf (`mcp_config.json`) and by hand in `~/.cursor/mcp.json`:
+The button installs the MCP server from the Docker image `ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0`, read-only. Keys stay out of the config: Cursor fills `${env:…}` from the environment, so set `CLOUDRU_S3_ACCESS_KEY_ID` and `CLOUDRU_S3_SECRET_ACCESS_KEY` where Cursor starts, and `CLOUDRU_S3_POOL` when the bucket is not in the default pool (empty means the default). The same block works for Windsurf (`mcp_config.json`) and by hand in `~/.cursor/mcp.json`:
 
 ```json
 {
@@ -49,7 +49,7 @@ The button installs the MCP server from the Docker image `ghcr.io/stufently/clou
         "CLOUDRU_S3_SECRET_ACCESS_KEY",
         "-e",
         "CLOUDRU_S3_POOL",
-        "ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.1"
+        "ghcr.io/stufently/cloudru-s3-mcp-ai-cli:0.1.0"
       ],
       "env": {
         "CLOUDRU_S3_ACCESS_KEY_ID": "${env:CLOUDRU_S3_ACCESS_KEY_ID}",
